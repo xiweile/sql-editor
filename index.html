@@ -4,229 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>SQL编辑器</title>
     <link rel="stylesheet" href="css/codemirror.css" />
     <link rel="stylesheet" href="css/theme/dracula.css" />
     <link rel="stylesheet" href="css/show-hint.css" />
-    <script type="text/javascript" src="js/codemirror.js"></script>
-    <script type="text/javascript" src="js/sublime.js"></script>
-    <script type="text/javascript" src="js/sql.js"></script>
-    <script type="text/javascript" src="js/sql-hint.js"></script>
-    <script type="text/javascript" src="js/show-hint.js"></script>
-    <script type="text/javascript" src="js/formatting.js"></script>
-    <script type="text/javascript" src="js/sql-formatter.min.js"></script>
-    <style>
-      html, body{
-          margin: 0;
-          padding: 0;
-          font-size: 16px;
-          font-family: Menlo, Monaco, Consolas, "Andale Mono", "lucida console", "Courier New", monospace;
-      }
-      header{
-          width: 100%;
-          height: 5px;
-          background-color: #1d364a;
-          line-height: 30px;
-          color: #fff;
-      }
-      header > span{
-          font-weight: 800;
-          margin-left: 1.5rem;
-      }
-      .CodeMirror {
-
-        font-size: 1rem;
-        font-family: Menlo, Monaco, Consolas, "Andale Mono", "lucida console", "Courier New", monospace;
-     }
-     .btn{
-    display: inline-block;
-    text-align: center;
-    background-color:#23bede;
-    padding: 10px 0;
-    width: 110px;
-    color: #FFF;
-    font-size: 16px;
-    border-radius: 3px;
-    border: none 0;
-    cursor: pointer;
-    line-height: normal;
-    outline: 0;
-    white-space: nowrap;
-    margin: .2rem;
-     }
-     #codeRun{
-         text-align: center;
-         background-color: #d8f0f5;
-     }
-     #handle {
-		  background:#3d444c;
-		  height: 5px;
-		  user-select: none;
-		  cursor: row-resize;
-		  text-align: center;
-		  line-height: 20px;
-	}
-.arrow-v{
-    background-color: #161b1e;
-    display: inline-block;
-    width: 3rem;
-    height: inherit;
-    line-height: inherit;
-}
-svg{
-    vertical-align: middle;
-}
-#code{
-    min-height: 300px;
-}
-    </style>
+    <link rel="stylesheet" href="js/jquery-easyui/themes/default/easyui.css">
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    
+    <link rel="stylesheet" href="css/index.css" />
+    <script type="text/javascript">
+    var baseUrl = "https://www.easy-mock.com/mock/5cdd370d2835327c57e2e575/test/";
+    </script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="js/editor/codemirror.js"></script>
+    <script type="text/javascript" src="js/editor/sublime.js"></script>
+    <script type="text/javascript" src="js/editor/sql.js"></script>
+    <script type="text/javascript" src="js/editor/sql-hint.js"></script>
+    <script type="text/javascript" src="js/editor/show-hint.js"></script>
+    <script type="text/javascript" src="js/editor/formatting.js"></script>
+    <script type="text/javascript" src="js/editor/sql-formatter.min.js"></script>
+    <script type="text/javascript" src="js/layui/layui.js"></script>
 </head>
 <body>
-<div class="wrap"></div>
-<header>
-   <!--   <span>
-        运行sql
-    </span> -->
-</header>
-    <textarea id="code"></textarea>
-    <!-- 负责拖拽 -->
-    <div id="handle">
-       <!--      <div class="arrow-v">
-            <svg t="1506317058000" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="989" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><defs><style type="text/css"></style></defs><path d="M701.259294 726.618353l43.128471 42.044235-232.387765 238.230588-232.387765-238.170353 43.128471-42.044235 159.141647 163.056941 0-755.471059-159.141647 163.117176-43.128471-42.104471 232.387765-238.170353 232.387765 238.170353-43.128471 42.044235-159.141647-163.056941 0 755.531294 159.141647-163.177412z" p-id="990" fill="#fff"></path></svg>
-            </div> -->
+    <div class="layui-container" >
+
+        <div class="layui-row">
+            <div class="card left-card">
+                <div class="tree-div">
+                    <ul id="dstable"  fit="true" border="false"></ul>
+                </div>
+            </div>
+            <div class="layui-col-xs9 card right-card">
+                <div class="layui-row tools">
+                        <button class="layui-btn layui-btn-primary  layui-btn-xs" id="save">
+                            <img src="image/save.png" alt="">保存</button>
+                        <button class="layui-btn layui-btn-primary  layui-btn-xs" id='format'>
+                                <img src="image/format.png" alt="">美化SQL</button>
+                        <button class="layui-btn layui-btn-primary  layui-btn-xs" id='execute'>
+                            <img src="image/run.png" alt="">执行</button>
+                        <button class="layui-btn layui-btn-primary  layui-btn-xs" id='stop' onclick="stopLoadData()">
+                            <img id="stopImg" src="image/stop0.png" alt="">停止</button>
+                </div>
+                <div class="layui-row sql-div">
+                    <textarea id="code"></textarea>
+                    <!-- 负责拖拽 -->
+                    <div id="handle" style="display: none"> </div>
+    
+                </div>
+                <div class="layui-row data-div">
+                    <div class="layui-tab h100" style="display: none"  lay-filter="result">
+                        <ul class="layui-tab-title">
+                            <li lay-id="info" >信息</li>
+                            <li class="layui-this" lay-id="data" >结果
+                                <img id="loading" style="display: none" src="js/jquery-easyui/themes/default/images/loading.gif" alt="">
+                            </li>
+                        </ul>
+                        <div class="layui-tab-content h100">
+    
+                            <div class="layui-tab-item data-info h100">
+                                <p id="resultCode"></p>
+                                <p id="resultMsg"></p>
+                                <p id="resultTime"></p>
+                            </div>
+                            <div class="layui-tab-item layui-show data-list h100">
+                                <table id="sqldata"></table>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+            </div>
         </div>
-    <div id="codeRun">
-        <button class="btn btnRun" id="execute">执行</button>
-        <button class="btn btnRun" id='format'>格式化</button>
     </div>
-</div>
+    <div id="save_div" style="display: none;" >
+        <div class="layui-form" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">分析名称：</label>
+                <div class="layui-input-inline">
+                    <input type="hidden" name="ghBh">
+                    <input type="text" name="name" placeholder="请输入"  autocomplete="off" class="layui-input">
+                </div>
+                <span style="color: red;position: relative;top: 15px;">*</span>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">分析描述：</label>
+                <div class="layui-input-inline">
+                    <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-<script type="text/javascript">
-var funs = {"max":true,"min":true,"sum":true};
-var keys = {"select":true,"from":true,"set":true};
-var cKeywords = "select from set";
-
-//根据DOM元素的id构造出一个编辑器
-    var editor=CodeMirror.fromTextArea(document.getElementById("code"),{
-                mode:"text/c-mysql", //实现Java代码高亮
-                lineNumbers:true,
-                theme:"default",
-                keyMap: "default",
-                extraKeys:{"Tab":"autocomplete"},
-                hint: CodeMirror.hint.sql,
-                lineWrapping: true,         //是否换行
-                foldGutter: true,           //是否折叠
-                gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"], //添加行号栏，折叠栏
-				hintOptions: {
-                    tables: {
-                        "user":["id","name"],
-                        "china":["beijing","shanghai"],
-                    } 
- 
-                }
-
-    });
-	
-	editor.on("keyup", function (cm, event) {  
-		//所有的字母和'$','{','.'在键按下之后都将触发自动完成  
-		if (!cm.state.completionActive &&  
-				((event.keyCode >= 65 && event.keyCode <= 90 ) || event.keyCode == 52 || event.keyCode == 219 || event.keyCode == 190)) {  
-			CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});  
-		}  
-	});  
-
-    editor.setSize('height','200px');
-     // 最小高度
-     const MIN_HEIGHT = 200;
-
-    //对编辑器这个node添加鼠标事件
-    var editorNode = document.getElementById('code');
-
-    var hahahha = document.getElementsByClassName('CodeMirror-wrap')[0];
-    console.log('初始值：' + hahahha.offsetHeight);
-    // 
-    var dragBar = document.getElementById('handle');
-
-     // 返回编辑器的高度
-     function  getHeight(node){
-         let h =  window.getComputedStyle(node, null).height.replace(/px$/, "");
-         if(h === 'auto'){
-             h = node.offsetHeight;
-         }
-         return parseInt(h);  
-     }
-
-     // 释放鼠标的时候触发的事件
-     function release(){
-        
-        console.log('end');
-        // 删除和添加都是使用两个参数的
-        document.body.removeEventListener('mousemove', drag);
-        window.removeEventListener('mouseup', release);
-     }
-
-     // drag 事件
-     function drag(e){
-         console.log('drag');
-         console.log('e.y:' + e.y);
-         console.log('pos_y:' + pos_y);
-         console.log('startHeight:' + startHeight);
-         console.log('-----------')
-         console.log(startHeight + e.y - pos_y);
-         editor.setSize('height', Math.max(MIN_HEIGHT, (startHeight + e.y - pos_y)) + "px");
-     }
-
-    dragBar.addEventListener('mousedown', function (e){
-        console.log('start'); 
-        // 开始高度
-        startHeight =  getHeight(hahahha);
-        console.log('开始高度：' + startHeight);
-        pos_x = e.x;
-        pos_y = e.y;
-        //只有按下鼠标移动的时候才能移动
-        document.body.addEventListener('mousemove', drag);
-        window.addEventListener('mouseup', release);
-    });
-
-
-    function getSelectedRange() {
-        return { from: editor.getCursor(true), to: editor.getCursor(false) };
-    }
-
-    //代码的格式化
-    function autoFormatSelection() {
-        // 获取输入的值
-        console.log(editor.getValue());
-        console.log('范围：' + JSON.stringify(getSelectedRange()));
-        var range = getSelectedRange();
-        editor.autoFormatRange(range.from, range.to);
-
-        function format() {
-                console.time('formatting');
-
-                let str = sqlFormatter.format(editor.getValue(), {language: 'sql'});
-                editor.setValue(str);
-                console.log('格式化的代码:' + str);
-                console.timeEnd('formatting');
-        }
-        format();
-    }
-
-    var formatButton = document.getElementById('format');
-    formatButton.addEventListener('click',autoFormatSelection);
-
-	 //代码执行
-    function executeSql() {
-        // 获取输入的值
-        console.log(editor.getValue());
-         alert(editor.getValue()+"\n 选中的: \n" + editor.getSelection())
-        
-    }
-
-    var exeButton = document.getElementById('execute');
-    exeButton.addEventListener('click',executeSql);
-
-	
-</script>
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

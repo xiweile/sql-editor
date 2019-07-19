@@ -1,0 +1,110 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    background-color: #f0f0f0;
+}
+header{
+    width: 100%;
+    height: 5px;
+    background-color: #1d364a;
+    line-height: 30px;
+    color: #fff;
+}
+header > span{
+    font-weight: 800;
+    margin-left: 1.5rem;
+}
+.CodeMirror {
+
+  font-size: 0.8rem;
+  font-family: Menlo, Monaco, Consolas, "Andale Mono", "lucida console", "Courier New", monospace;
+}
+
+#handle {
+    background:#f0f0f0;
+    height: 5px;
+    user-select: none;
+    cursor: row-resize;
+    text-align: center;
+    line-height: 20px;
+}
+
+#code{
+  min-height: 300px;
+}
+.card{
+  margin-top: 10px;
+  height: 600px;
+}
+.left-card {
+   margin-right: 10px;
+   width: 22%;
+   float: left;
+   background-color: #ffffff;
+}
+.left-card .tree-div{
+  height:100%;
+  overflow: auto;
+}
+.right-card .sql-div{
+  border: 2px solid #f7f7f7;
+  margin-top: 5px;
+}
+.right-card .data-div{
+  background-color: #ffffff;
+}
+.right-card .data-div .data-info{
+font-size: 14px;
+margin-top: 5px;
+}
+.right-card .data-div  .h100{
+    height:100%;
+}
+.right-card .tools img{
+  position: relative;
+  top: -1px;
+}
+
+.right-card .tools button{
+  /*background-color: #f0f0f0;*/
+}
+.layui-tab{
+  margin: 0px;
+}
+.layui-tab-content {
+    margin-top: 2px;
+   padding: 0px;
+}
+.layui-tab-title .layui-this {
+    background-color: #ffffff;
+    border-bottom: 0px;
+}
+.layui-tab-title li {
+    line-height: 27px;
+    min-width: 40px;
+    background-color: #d8d8d8;
+    border: 1px solid #8e8b8b;
+}
+.layui-tab-title {
+    height: 27px;
+    border-bottom: 0px;
+    border-top: 1px solid #dddddd;
+}
+.layui-tab-title .layui-this:after{
+    border-style: none;
+}
+.layui-form-label {
+    padding: 9px 0px;
+    width: 84px;
+    font-size: 14px;
+}
+.layui-textarea,.layui-input{
+    font-size: 14px;
+}
+.layui-form-item .layui-input-inline {
+    margin-left: 10px;
+    min-height: 36px;
+    margin-top: 5px;
+    width: 376px;
+}
