@@ -460,8 +460,8 @@ CodeMirror.defineMode("sql", function(config, parserConfig) {
     var ckeywords = [];
     var funwords = [];
     $.ajax({
-        type : "post",
-        url :  baseUrl+ 'sqleditor/allwords',
+        type : "get",
+        url :  baseUrl+ 'json/allWords.json',
         dataType : "json",
         async:false,
         success: function(r){

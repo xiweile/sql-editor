@@ -327,8 +327,8 @@ $('#format').click(function () {
 
 // 初始化数据库表树结构
 $.ajax({
-    type : "POST",
-    url : baseUrl + 'tree/tables',
+    type : "get",
+    url : baseUrl + 'json/tables.json',
     dataType : "json",
     //async:false,
     success: function(r){

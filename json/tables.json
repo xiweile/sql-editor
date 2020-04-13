@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "text": "数据库",
+    "children": [
+      {
+        "text": "表",
+        "children": [
+          {
+            "id": 1,
+            "text": "cp_sku",
+            "children": [
+              {
+                "text": "skuid"
+              },
+              {
+                "text": "cpbh"
+              },
+              {
+                "text": "tcbh"
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "text": "user_info",
+            "state":"closed",
+            "children": [
+              {
+                "text": "user_id"
+              },
+              {
+                "text": "user_token"
+              },
+              {
+                "text": "user_name"
+              },
+              {
+                "text": "user_type"
+              },
+              {
+                "text": "password"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
